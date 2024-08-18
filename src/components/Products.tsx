@@ -20,11 +20,13 @@ const Products = () => {
   const limit = 9;
   const [productCount, setProductCount] = useState(0);
   const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [brandName, setBrandName] = useState('');
+  const [categoryName, setCategoryName] = useState('');
 
   useEffect(() => {
     fetch(
-      `${url}/product/get-product?page=${page}&limit=${limit}&search=${search}&brand=${brandName}`
+      `${url}/product/get-product?page=${page}&limit=${limit}&search=${search}&brand=${brandName}&category=${categoryName}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -32,13 +34,20 @@ const Products = () => {
         setProductCount(data.data[1]);
       })
       .catch((err) => console.log('Error while fetching the products', err));
-  }, [page, limit, search, brandName]);
+  }, [page, limit, search, brandName, categoryName]);
 
   useEffect(() => {
     fetch(`${url}/product/get-brands`)
       .then((res) => res.json())
       .then((data) => setBrands(data))
       .catch((err) => console.log('error while fetching brand name', err));
+  }, []);
+
+  useEffect(() => {
+    fetch(`${url}/product/get-categories`)
+      .then((res) => res.json())
+      .then((data) => setCategories(data))
+      .catch((err) => console.log('error while fetching Categories name', err));
   }, []);
 
   const pages = Math.ceil(productCount / limit);
@@ -114,8 +123,8 @@ const Products = () => {
           </div>
         </div>
         <div className="w-72">
-          <div className="sticky top-0">
-            <h2 className="text-center text-3xl font-bold mt-3">Filters</h2>
+          <div className="sticky top-3">
+            <h2 className="text-center text-3xl font-bold">Filters</h2>
             <div>
               <select
                 onChange={(e) => setBrandName(e.target.value)}
@@ -128,13 +137,16 @@ const Products = () => {
                   </option>
                 ))}
               </select>
-              <select className="select w-full max-w-xs">
-                <option>Pick your favorite Simpson</option>
-                <option>Homer</option>
-                <option>Marge</option>
-                <option>Bart</option>
-                <option>Lisa</option>
-                <option>Maggie</option>
+              <select
+                onChange={(e) => setCategoryName(e.target.value)}
+                className="select w-full max-w-xs"
+              >
+                <option value={''}>All Category</option>
+                {categories?.map((category) => (
+                  <option value={category} key={category}>
+                    {category}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
