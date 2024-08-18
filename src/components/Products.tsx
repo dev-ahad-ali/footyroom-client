@@ -46,6 +46,12 @@ const Products = () => {
 
   return (
     <div>
+      <div className="grid place-items-center mt-12">
+        <label className="input input-bordered flex items-center gap-2 w-3/5">
+          <input type="text" className="grow" placeholder="Search" />
+          <button className="btn btn-sm btn-success text-white">Search</button>
+        </label>
+      </div>
       <div className="max-w-[1440px] px-4 flex gap-4 mx-auto mt-12">
         <div>
           <div className="grid grid-cols-3 gap-2 flex-1">
@@ -78,7 +84,29 @@ const Products = () => {
         </div>
         <div className="w-72">
           <div className="sticky top-0">
-            <h2 className="text-center">sidebar</h2>
+            <h2 className="text-center text-3xl font-bold mt-3">Filters</h2>
+            <div>
+              <select className="select w-full max-w-xs">
+                <option disabled selected>
+                  Pick your favorite Simpson
+                </option>
+                <option>Homer</option>
+                <option>Marge</option>
+                <option>Bart</option>
+                <option>Lisa</option>
+                <option>Maggie</option>
+              </select>
+              <select className="select w-full max-w-xs">
+                <option disabled selected>
+                  Pick your favorite Simpson
+                </option>
+                <option>Homer</option>
+                <option>Marge</option>
+                <option>Bart</option>
+                <option>Lisa</option>
+                <option>Maggie</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
