@@ -23,10 +23,12 @@ const Products = () => {
   const [categories, setCategories] = useState([]);
   const [brandName, setBrandName] = useState('');
   const [categoryName, setCategoryName] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   useEffect(() => {
     fetch(
-      `${url}/product/get-product?page=${page}&limit=${limit}&search=${search}&brand=${brandName}&category=${categoryName}`
+      `${url}/product/get-product?page=${page}&limit=${limit}&search=${search}&brand=${brandName}&category=${categoryName}&minPrice=${minPrice}&maxPrice=${maxPrice}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -34,7 +36,7 @@ const Products = () => {
         setProductCount(data.data[1]);
       })
       .catch((err) => console.log('Error while fetching the products', err));
-  }, [page, limit, search, brandName, categoryName]);
+  }, [page, limit, search, brandName, categoryName, minPrice, maxPrice]);
 
   useEffect(() => {
     fetch(`${url}/product/get-brands`)
@@ -147,6 +149,25 @@ const Products = () => {
                     {category}
                   </option>
                 ))}
+              </select>
+              <select
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value) {
+                    const numbers = value.split('-');
+                    setMinPrice(numbers[0]);
+                    setMaxPrice(numbers[1]);
+                  } else {
+                    setMinPrice('');
+                    setMaxPrice('');
+                  }
+                }}
+                className="select w-full max-w-xs"
+              >
+                <option value={''}>All Prices</option>
+                <option value={'50-100'}>50 - 100</option>
+                <option value={'100-150'}>100 - 150</option>
+                <option value={'150-200'}>150 - 200</option>
               </select>
             </div>
           </div>
