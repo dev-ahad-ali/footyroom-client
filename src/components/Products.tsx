@@ -11,6 +11,8 @@ export interface Product {
   rating: number;
   brand: string;
   category: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const Products = () => {
@@ -71,7 +73,7 @@ const Products = () => {
 
   return (
     <div>
-      <div className="grid place-items-center mt-12">
+      <div className="grid sticky bg-white py-4 top-0 place-items-center mt-12">
         <label className="input input-bordered flex items-center gap-2 w-3/5">
           <input
             onChange={(e) => {

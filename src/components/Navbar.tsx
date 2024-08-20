@@ -1,14 +1,27 @@
+import { useContext } from 'react';
+import { AuthContext } from '../Providers/AuthProvider';
+
 const Navbar = () => {
+  const { googleSignIn, user, logout }: any = useContext(AuthContext);
+
   return (
     <div className="navbar max-w-[1440px] px-3 mx-auto">
       <div className="flex-1">
         <a className="text-3xl font-matemasie text-green-400">FootyRoom</a>
       </div>
-      <div className="flex-none">
+      <div className="flex-none space-x-2">
+        <button onClick={googleSignIn} className="btn btn-success text-white">
+          Google
+        </button>
+        {user && (
+          <button onClick={logout} className="btn btn-error text-white">
+            Logout
+          </button>
+        )}
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <div>
-              <p>User</p>
+              <p>{user ? user?.displayName : 'No User'}</p>
             </div>
           </div>
         </div>
