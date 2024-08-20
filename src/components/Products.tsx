@@ -101,15 +101,15 @@ const Products = () => {
           </svg>
         </label>
       </div>
-      <div className="max-w-[1440px] px-4 flex gap-4 mx-auto mt-12">
-        <div className="flex-1">
-          <div className="flex-1">
+      <div className="max-w-[1440px] px-4 block md:flex gap-4 mx-auto mt-12">
+        <div className="md:flex-1">
+          <div className="md:flex-1">
             {loading ? (
-              <div className="flex-1 min-h-screen grid place-items-center ">
+              <div className="md:flex-1 min-h-screen grid place-items-center ">
                 <span className="loading loading-lg loading-spinner text-success"></span>
               </div>
             ) : (
-              <div className="grid grid-cols-3 gap-2 flex-1">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:flex-1">
                 {products?.map((product: Product) => (
                   <ProductCard key={product._id} product={product} />
                 ))}
@@ -141,7 +141,7 @@ const Products = () => {
         <div className="w-72">
           <div className="sticky top-3">
             <h2 className="text-center text-3xl font-bold">Filters</h2>
-            <div>
+            <div className="space-y-2">
               <select
                 onChange={(e) => {
                   setBrandName(e.target.value);
