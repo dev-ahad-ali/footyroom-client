@@ -12,7 +12,7 @@ const ProductCard = ({ product }: ProductProps) => {
       </div>
       <h2>{product.name}</h2>
       <h2>Price : $ {product.price}</h2>
-      <h2>Date: {product.createdAt.toString()}</h2>
+      <h2>Date: {product.createdAt.toString().split('T')[0]}</h2>
     </div>
   );
 };

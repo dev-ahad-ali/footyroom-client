@@ -28,8 +28,10 @@ const Products = () => {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [sort, setSort] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch(
       `${url}/product/get-product?page=${page}&limit=${limit}&search=${search}&brand=${brandName}&category=${categoryName}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${sort}`
     )
@@ -37,6 +39,7 @@ const Products = () => {
       .then((data) => {
         setProducts(data.data[0]);
         setProductCount(data.data[1]);
+        setLoading(false);
       })
       .catch((err) => console.log('Error while fetching the products', err));
   }, [page, limit, search, brandName, categoryName, minPrice, maxPrice, sort]);
@@ -78,6 +81,7 @@ const Products = () => {
           <input
             onChange={(e) => {
               setSearch(e.target.value);
+              setPage(1);
             }}
             type="text"
             className="grow"
@@ -98,13 +102,20 @@ const Products = () => {
         </label>
       </div>
       <div className="max-w-[1440px] px-4 flex gap-4 mx-auto mt-12">
-        <div>
-          <div className="grid grid-cols-3 gap-2 flex-1">
-            {products?.map((product: Product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
+        <div className="flex-1">
+          <div className="flex-1">
+            {loading ? (
+              <div className="flex-1 min-h-screen grid place-items-center ">
+                <span className="loading loading-lg loading-spinner text-success"></span>
+              </div>
+            ) : (
+              <div className="grid grid-cols-3 gap-2 flex-1">
+                {products?.map((product: Product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </div>
+            )}
           </div>
-
           <div className="mt-8 px-10 flex justify-between">
             <button onClick={handlePrevious} className="btn  btn-outline btn-success text-white">
               «
@@ -132,7 +143,10 @@ const Products = () => {
             <h2 className="text-center text-3xl font-bold">Filters</h2>
             <div>
               <select
-                onChange={(e) => setBrandName(e.target.value)}
+                onChange={(e) => {
+                  setBrandName(e.target.value);
+                  setPage(1);
+                }}
                 className="select w-full max-w-xs"
               >
                 <option value={''}>All Brands</option>
@@ -143,7 +157,10 @@ const Products = () => {
                 ))}
               </select>
               <select
-                onChange={(e) => setCategoryName(e.target.value)}
+                onChange={(e) => {
+                  setCategoryName(e.target.value);
+                  setPage(1);
+                }}
                 className="select w-full max-w-xs"
               >
                 <option value={''}>All Category</option>
@@ -160,9 +177,11 @@ const Products = () => {
                     const numbers = value.split('-');
                     setMinPrice(numbers[0]);
                     setMaxPrice(numbers[1]);
+                    setPage(1);
                   } else {
                     setMinPrice('');
                     setMaxPrice('');
+                    setPage(1);
                   }
                 }}
                 className="select w-full max-w-xs"
@@ -175,6 +194,7 @@ const Products = () => {
               <select
                 onChange={(e) => {
                   setSort(e.target.value);
+                  setPage(1);
                 }}
                 className="select w-full max-w-xs"
               >
