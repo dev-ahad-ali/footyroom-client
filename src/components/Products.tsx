@@ -139,7 +139,7 @@ const Products = () => {
           </div>
         </div>
         <div className="w-72">
-          <div className="sticky top-3">
+          <div className="sticky top-10">
             <h2 className="text-center text-3xl font-bold">Filters</h2>
             <div className="space-y-2">
               <select

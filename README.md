@@ -6,8 +6,8 @@
 
 Run the Project :
 
-- <code>npm install<code>
-- <code>npm run dev<code>
+- npm install
+- npm run dev
 
 ---
 
