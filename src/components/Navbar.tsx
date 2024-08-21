@@ -18,12 +18,8 @@ const Navbar = () => {
             Logout
           </button>
         )}
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-            <div>
-              <p>{user ? user?.displayName : 'No User'}</p>
-            </div>
-          </div>
+        <div>
+          <p className="text-sm font-bold">{user ? user?.displayName : 'No User'}</p>
         </div>
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
