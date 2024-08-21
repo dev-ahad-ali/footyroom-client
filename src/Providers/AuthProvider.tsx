@@ -17,7 +17,7 @@ type children = {
 
 const AuthProvider = ({ children }: children) => {
   const [user, setUser] = useState<object | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const googleProvider = new GoogleAuthProvider().addScope('email');
 
   // create user
@@ -53,6 +53,16 @@ const AuthProvider = ({ children }: children) => {
       unsubscribe();
     };
   }, [user]);
+
+  // type AuthInfo = {
+  //   login: (a: string, b: string) => {};
+  //   loading: boolean;
+  //   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  //   createUser: (a: string, b: string) => {};
+  //   logout: () => {};
+  //   googleSignIn: () => {};
+  //   user: object | null;
+  // };
 
   const authInfo: any = {
     login,

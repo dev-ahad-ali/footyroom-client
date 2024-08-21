@@ -16,19 +16,19 @@ export interface Product {
 }
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const limit = 9;
-  const [productCount, setProductCount] = useState(0);
-  const [brands, setBrands] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [brandName, setBrandName] = useState('');
-  const [categoryName, setCategoryName] = useState('');
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [sort, setSort] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [search, setSearch] = useState<string>('');
+  const limit: number = 9;
+  const [productCount, setProductCount] = useState<number>(0);
+  const [brands, setBrands] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [brandName, setBrandName] = useState<string>('');
+  const [categoryName, setCategoryName] = useState<string>('');
+  const [minPrice, setMinPrice] = useState<string>('');
+  const [maxPrice, setMaxPrice] = useState<string>('');
+  const [sort, setSort] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setLoading(true);
@@ -58,17 +58,17 @@ const Products = () => {
       .catch((err) => console.log('error while fetching Categories name', err));
   }, []);
 
-  const pages = Math.ceil(productCount / limit);
+  const pages: number = Math.ceil(productCount / limit);
 
-  const pageNumbers = [...Array(pages).keys()];
+  const pageNumbers: number[] = [...Array(pages).keys()];
 
-  const handleNext = () => {
+  const handleNext = (): void => {
     if (page < pageNumbers.length) {
       setPage(page + 1);
     }
   };
 
-  const handlePrevious = () => {
+  const handlePrevious = (): void => {
     if (page > 1) {
       setPage(page - 1);
     }
@@ -79,7 +79,7 @@ const Products = () => {
       <div className="grid sticky bg-white py-4 top-0 place-items-center mt-12">
         <label className="input input-bordered flex items-center gap-2 w-3/5">
           <input
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setSearch(e.target.value);
               setPage(1);
             }}
@@ -143,7 +143,7 @@ const Products = () => {
             <h2 className="text-center text-3xl font-bold">Filters</h2>
             <div className="space-y-2">
               <select
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   setBrandName(e.target.value);
                   setPage(1);
                 }}
@@ -157,7 +157,7 @@ const Products = () => {
                 ))}
               </select>
               <select
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   setCategoryName(e.target.value);
                   setPage(1);
                 }}
@@ -171,7 +171,7 @@ const Products = () => {
                 ))}
               </select>
               <select
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   const value = e.target.value;
                   if (value) {
                     const numbers = value.split('-');
@@ -192,7 +192,7 @@ const Products = () => {
                 <option value={'150-200'}>150 - 200</option>
               </select>
               <select
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   setSort(e.target.value);
                   setPage(1);
                 }}
