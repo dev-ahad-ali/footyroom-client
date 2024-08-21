@@ -80,8 +80,10 @@ const Products = () => {
         <label className="input input-bordered flex items-center gap-2 w-3/5">
           <input
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearch(e.target.value);
-              setPage(1);
+              setTimeout(() => {
+                setSearch(e.target.value);
+                setPage(1);
+              }, 700);
             }}
             type="text"
             className="grow"
